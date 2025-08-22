@@ -41,7 +41,10 @@ public class GridEmailSender implements EmailSenderGateway {
             request.setEndpoint("mail/send");
             request.setBody(mail.build());
             Response response = sendGrid.api(request);
-            log.info("Email using GRID API sent successfully", response.getStatusCode());
+            if(response.getStatusCode() != 202) {
+                throw new EmailServiceException("Failed to send email using GRID API");
+            }
+            log.info("Email using GRID API sent successfully" + response.getStatusCode());
         } catch (IOException ex) {
             log.error("Failed to send email using GRID API" + ex.getClass().getSimpleName() + ex.getMessage());
             throw new EmailServiceException("Failed to send email using GRID API", ex);

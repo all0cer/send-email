@@ -14,6 +14,10 @@ import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
 
+import lombok.extern.log4j.Log4j2;
+
+
+@Log4j2
 @Service
 public class GridEmailSender implements EmailSenderGateway {
 
@@ -37,11 +41,10 @@ public class GridEmailSender implements EmailSenderGateway {
             request.setEndpoint("mail/send");
             request.setBody(mail.build());
             Response response = sendGrid.api(request);
-            System.out.println(response.getStatusCode());
-            System.out.println(response.getBody());
-            System.out.println(response.getHeaders());
+            log.info("Email using GRID API sent successfully", response.getStatusCode());
         } catch (IOException ex) {
-            throw new EmailServiceException("Failed to send email", ex);
+            log.error("Failed to send email using GRID API" + ex.getClass().getSimpleName() + ex.getMessage());
+            throw new EmailServiceException("Failed to send email using GRID API", ex);
         }
     }
     

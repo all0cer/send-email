@@ -1,12 +1,10 @@
 package com.italo.email_service.infra.ses;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.italo.email_service.adapters.EmailSenderGateway;
 import com.italo.email_service.core.exceptions.EmailServiceException;
 
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
 import software.amazon.awssdk.services.ses.SesClient;
 import software.amazon.awssdk.services.ses.model.Body;
@@ -23,7 +21,7 @@ public class SesEmailSender implements EmailSenderGateway{
 
     private final SesClient sesClient;
 
-    @Autowired
+    
     SesEmailSender(SesClient sesClient) {
         this.sesClient = sesClient;
     }

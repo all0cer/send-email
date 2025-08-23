@@ -23,14 +23,14 @@
 <!-- <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
     <Appenders>
-        <!-- Console em ECS JSON -->
+        < Console em ECS JSON 
         <Console name="EcsConsole" target="SYSTEM_OUT">
             <EcsLayout serviceName="email-service"
                        serviceNodeName="instance-1"
                        eventDataset="application.log"/>
         </Console>
 
-        <!-- Arquivo em ECS JSON -->
+        < Arquivo em ECS JSON 
         <File name="EcsFile" fileName="logs/send-email.json" append="true">
             <EcsLayout serviceName="email-service"
                        serviceNodeName="instance-1"

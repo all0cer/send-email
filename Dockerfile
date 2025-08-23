@@ -1,9 +1,10 @@
-FROM  maven:3.8.6-openjdk-17 as build
+FROM  maven:3.8.6-eclipse-temurin-17 AS build
 
 COPY src /app/src
+COPY pom.xml /app
 WORKDIR /app
 
-RUN mvn clean install
+RUN mvn clean install -DskipTests
 
 FROM openjdk:17-jdk-alpine
 

@@ -1,5 +1,6 @@
 package com.italo.email_service.infra.ses;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.italo.email_service.adapters.EmailSenderGateway;
@@ -21,7 +22,9 @@ public class SesEmailSender implements EmailSenderGateway{
 
     private final SesClient sesClient;
 
-    
+    @Value("${from.email}")
+    private String fromEmail;
+
     SesEmailSender(SesClient sesClient) {
         this.sesClient = sesClient;
     }
@@ -44,7 +47,7 @@ public class SesEmailSender implements EmailSenderGateway{
         SendEmailRequest sendEmailRequest = SendEmailRequest.builder()
             .destination(destination)
             .message(message)
-            .source("italoalmeinasc@gmail.com")
+            .source(fromEmail) 
             .build();
         
         try {

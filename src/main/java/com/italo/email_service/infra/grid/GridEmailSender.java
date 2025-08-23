@@ -2,6 +2,7 @@ package com.italo.email_service.infra.grid;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.italo.email_service.adapters.EmailSenderGateway;
@@ -23,13 +24,16 @@ public class GridEmailSender implements EmailSenderGateway {
 
     private final SendGrid sendGrid;
 
+    @Value("${from.email}")
+    private String fromEmail;
+
     public GridEmailSender(SendGrid sendGrid) {
         this.sendGrid = sendGrid;
     }
 
     @Override
     public void sendEmail(String email, String subject, String message) {
-        Email from = new Email("italoalmeinasc@gmail.com");
+        Email from = new Email(fromEmail);
         String contentsubject = subject;
         Email to = new Email(email);
         Content content = new Content("text/plain", message);
